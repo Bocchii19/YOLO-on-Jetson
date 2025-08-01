@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-# ==== Cấu hình phiên bản ====
-OPENCV_VERSION="4.11.0"
-NUMPY_VERSION="1.26.4"  # Tương thích với OpenCV
+# ==== OPENCV Version ====
+OPENCV_VERSION="4.11.0" # OpenCV version compatible with your host or docker images
+NUMPY_VERSION="1.26.4"  # Numpy version compatible with OpenCV
 
 echo "Clean the previous build"
 sudo apt remove -y libopencv-dev python3-opencv || true
@@ -36,9 +36,8 @@ mkdir -p ~/opencv_build && cd ~/opencv_build
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D CMAKE_INSTALL_PREFIX=/usr/local \
       -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
-#      -D WITH_CUDA=ON \  #We cant build with cuda and cudnn in docker container, uncomment it if you build on host
+#      -D WITH_CUDA=ON \  #We cant build with Cuda and CuDNN in docker container, uncomment it if you build on host
 #      -D WITH_CUDNN=ON \
-      -D OPENCV_DNN_CUDA=ON \
       -D ENABLE_FAST_MATH=1 \
       -D CUDA_FAST_MATH=1 \
       -D WITH_CUBLAS=1 \
@@ -55,6 +54,6 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
       ..
 
 
-make -j$(nproc)
+make -j$(nproc) 
 sudo make install
 sudo ldconfig
