@@ -9,13 +9,13 @@ RTSP_URLS = [
  
 NUM_ROWS, NUM_COLS = 2, 4
 FRAME_W, FRAME_H = 640, 480
-SHOW_RESULT = True
+SHOW_RESULT = True # Show the output windows or not
 SAVE_OUTPUT = False
  
 # ==== MODEL ====
-model = YOLO("yolov8_face_custom_v2.pt")  # Thay bằng model bạn huấn luyện
+model = YOLO("model_file")
  
-# ==== GStreamer pipeline với H.265 và Jetson decoder ====
+# ==== GStreamer pipeline  ====
 def gstreamer_pipeline(rtsp_url, width, height):
     return (
         # Gstreamer Pipeline for RTSP
